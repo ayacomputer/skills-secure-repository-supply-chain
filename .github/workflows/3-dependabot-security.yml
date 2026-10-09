@@ -89,14 +89,13 @@ jobs:
           issue-number: ${{ env.ISSUE_NUMBER }}
           comment-id: ${{ steps.find-last-comment.outputs.comment-id }}
           edit-mode: replace
-          file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
-          vars: |
-            step_number: 3
-            results_table:
-              - description: "Checked for updated axios version in package.json"
-                passed: ${{ steps.check-package-json.outcome == 'success' }}
-              - description: "Checked for updated axios version in package-lock.json"
-                passed: ${{ steps.check-package-lock-json.outcome == 'success' }}
+          body: |
+            ## Step 3 - ${{ steps.check-package-json.outcome == 'success' && steps.check-package-lock-json.outcome == 'success' && 'Passed ✅' || 'Fail ❌' }}
+
+            | Status | Description |
+            | ------ | ----------- |
+            | ${{ steps.check-package-json.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Checked for updated axios version in package.json |
+            | ${{ steps.check-package-lock-json.outcome == 'success' && '✅ - Pass' || '❌ - Fail' }} | Checked for updated axios version in package-lock.json |
 
       # END: Check practical exercise
 
